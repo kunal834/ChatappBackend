@@ -44,12 +44,7 @@ export const Usersignup = async(req , res , next) =>{
     
 
     }catch(error){
-         console.log("Error" ,error)
-        res.status(500).json({
-            success: false,
-            message: error.message || "Internal Servor Error"
-        })
-
+     next(error);
     }
 
 
@@ -76,11 +71,7 @@ export const Userlogin = async(req,res,next) =>{
 
 
     }catch(error){
-         console.log("Error" ,error)
-        res.status(500).json({
-            success: false,
-            message: error.message || "Internal Servor Error"
-        })
+    next(error);
     }
 
 
@@ -95,7 +86,7 @@ export const checkAuth = (req,res) =>{
 }
 
 // controller so that user can update profile picture
-export const Profileupdate = async(req,res) =>{
+export const Profileupdate = async(req,res,next) =>{
     try{
         const { fullname , bio , profilePic} = req.body;
         
@@ -121,11 +112,8 @@ export const Profileupdate = async(req,res) =>{
 
     }catch(error){
     
-        console.log("Error" ,error)
-        res.status(500).json({
-            success: false,
-            message: error.message || "Internal Servor Error"
-        })
+       next(error);
+    
 
 
     }
