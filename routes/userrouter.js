@@ -1,5 +1,4 @@
 import express from "express"
-import { Router } from "express"
 import { isAuthenticated } from "../middlewares/auth.js"
 import { checkAuth, Profileupdate, Userlogin, Usersignup ,logout} from "../Controllers/UserControllers.js";
 

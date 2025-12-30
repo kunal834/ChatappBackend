@@ -13,7 +13,6 @@ export const getuserforsidebar  = async(req ,res) =>{
         const filteredUsers = await Usermodel.find({_id : {$ne: userId}}).select("-password") // we will remove the loggedin user from all the message user 
 
         // Count number of messages not seen 
-
         const unseenMessage = {} 
         const promises = filteredUsers.map(async (user) =>{
             const messages = await Messagemodel.find({

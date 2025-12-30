@@ -42,16 +42,23 @@ io.on("connection" , (socket) =>{
     const userId = socket.handshake.query.userId;
     console.log(userId)
     console.log("user Connected" , userId);
-
+    
+    // Store the mapping of userId to socketId
     if(userId) userSocketMap[userId] = socket.id;
 
     // Emit online users to all connected clients
-    io.emit("getOnlineUsers" , Object.keys(userSocketMap));
+    io.emit("getOnlineUsers" , Object.keys(userSocketMap)); // Send list of online userIds to all  Frontend for green dot   
 
     socket.on("disconnect" , () =>{
-        console.log("User disconected" , userId);
-        delete userSocketMap[userId];
-        io.emit("getOnlineUsers" , Object.keys(userSocketMap));
+       console.log("User disconnected", userId);
+
+        // Only remove the user if the disconnecting socket matches the stored socket
+        // This prevents closing Tab 1 from logging out Tab 2
+        if (userSocketMap[userId] === socket.id) {
+            delete userSocketMap[userId];
+            // Only emit the update if we actually removed someone
+            io.emit("getOnlineUsers", Object.keys(userSocketMap));
+        }
         
 
 
