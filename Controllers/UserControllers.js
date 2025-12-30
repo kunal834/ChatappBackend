@@ -1,6 +1,6 @@
 
 import bcrypt from "bcryptjs"
-import ErrorHandler from "../utils/Errorhandler.js"
+import ErrorHandler from "../utils/errorhandler.js"
 import { Usermodel } from "../models/User.js"
 
 import cloudinary from "../utils/Cloudinary.js"
